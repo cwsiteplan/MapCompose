@@ -45,8 +45,8 @@ internal fun MarkerLayout(
                     placeable.measuredHeight * data.relativeOffset.y + data.absoluteOffset.y
 
                 if (zoomPRState.rotation == 0f) {
-                    val x = (data.x * zoomPRState.fullWidth * zoomPRState.scale + widthOffset).toInt()
-                    val y = (data.y * zoomPRState.fullHeight * zoomPRState.scale + heightOffset).toInt()
+                    val x = (data.x * (zoomPRState.widthWithTilePadding) * zoomPRState.scale + widthOffset + zoomPRState.tilePaddingX * zoomPRState.scale).toInt()
+                    val y = (data.y * (zoomPRState.heightWithTilePadding) * zoomPRState.scale + heightOffset + zoomPRState.tilePaddingY * zoomPRState.scale).toInt()
                     data.xPlacement = x
                     data.yPlacement = y
 

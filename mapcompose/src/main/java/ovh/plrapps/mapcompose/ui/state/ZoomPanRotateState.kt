@@ -79,6 +79,11 @@ internal class ZoomPanRotateState(
             setScale(scale)
         }
 
+    internal val widthWithTilePadding
+        get() = fullWidth - tilePaddingX.times(2)
+    internal val heightWithTilePadding
+        get() = fullWidth - tilePaddingY.times(2)
+
     internal var shouldLoopScale by mutableStateOf(false)
 
     internal var scrollOffsetRatio = Offset(0f, 0f)
@@ -597,8 +602,8 @@ internal class ZoomPanRotateState(
     }
 
     private fun recalculateMinScale() {
-        val minScaleX = layoutSize.width.toFloat() / (fullWidth - tilePaddingX * 2)
-        val minScaleY = layoutSize.height.toFloat() / (fullHeight - tilePaddingY * 2)
+        val minScaleX = layoutSize.width.toFloat() / widthWithTilePadding
+        val minScaleY = layoutSize.height.toFloat() / heightWithTilePadding
         val mode = minimumScaleMode
         minScale = when (mode) {
             Fit -> min(minScaleX, minScaleY)
