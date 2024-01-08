@@ -24,23 +24,18 @@ fun MapDemoSimple(
 ) {
     var myData by remember { mutableStateOf(MyData(emptyList())) }
 
-    Box {
-        MyMapComposable(myData = myData, mapState = viewModel.state)
-        Button(onClick = {  myData = MyData(myData.someList + "test ${Random.nextInt()}") }) {
-            Text("add data")
-        }
-    }
-}
-
-@Composable
-fun MyMapComposable(modifier: Modifier = Modifier, myData: MyData, mapState: MapState) {
     LaunchedEffect(Unit) {
-        mapState.onMarkerClick { id, x, y ->
+        viewModel.state.onMarkerClick { id, x, y ->
             Log.d("Bug", "my marker state: ${myData.someList.size}")
         }
     }
 
-    MapUI(modifier, state = mapState)
+    Box {
+        MapUI(modifier, state = viewModel.state)
+        Button(onClick = {  myData = MyData(myData.someList + "test ${Random.nextInt()}") }) {
+            Text("add data")
+        }
+    }
 }
 
 data class MyData(
